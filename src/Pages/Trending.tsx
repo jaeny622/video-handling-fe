@@ -1,3 +1,13 @@
+import { useEffect } from "react";
+import { videoStore } from "../Stores/video.stores";
+
 export default function Trending() {
-  return <div>trending</div>;
+  useEffect(() => {
+    videoStore.getVideoList();
+  }, []);
+  return (
+    <div>
+      {videoStore.videos?.length === 0 ? "No Vidoes" : "Welcome to Homepage"}
+    </div>
+  );
 }

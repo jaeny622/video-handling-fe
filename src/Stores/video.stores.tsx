@@ -1,4 +1,8 @@
+import { getVideos } from "../Services/video.services";
+import { Video } from "../Types/video.types";
+
 class VideoStore {
+  private _videos = [] as Video[];
   private _title = "";
   private _fileUrl = "";
   private _thumbUrl = "";
@@ -8,6 +12,12 @@ class VideoStore {
   private _views = 0;
   private _owner = "";
 
+  public get videos() {
+    return this._videos;
+  }
+  public set videos(value: Video[]) {
+    this._videos = value;
+  }
   public get title(): string {
     return this._title;
   }
@@ -55,6 +65,16 @@ class VideoStore {
   }
   public set owner(value: string) {
     this._owner = value;
+  }
+
+  async getVideoList() {
+    try {
+      const result = await getVideos();
+      this.videos = result;
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
