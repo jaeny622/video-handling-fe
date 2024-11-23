@@ -1,22 +1,33 @@
 import { getVideos } from "../Services/video.services";
-import { Video } from "../Types/video.types";
+import { Video, VideoStd } from "../Types/video.types";
 
 class VideoStore {
   private _videos = [] as Video[];
+  private _uploadVideo = {} as VideoStd;
+  private _video = {} as Video;
   private _title = "";
   private _fileUrl = "";
   private _thumbUrl = "";
   private _description = "";
-  private _createdAt = new Date();
   private _hashtags = [] as string[];
-  private _views = 0;
-  private _owner = "";
 
   public get videos() {
     return this._videos;
   }
   public set videos(value: Video[]) {
     this._videos = value;
+  }
+  public get uploadVideo() {
+    return this._uploadVideo;
+  }
+  public set uploadVideo(value: VideoStd) {
+    this._uploadVideo = value;
+  }
+  public get video() {
+    return this._video;
+  }
+  public set video(value) {
+    this._video = value;
   }
   public get title(): string {
     return this._title;
@@ -42,31 +53,12 @@ class VideoStore {
   public set description(value: string) {
     this._description = value;
   }
-  public get createdAt(): Date {
-    return this._createdAt;
-  }
-  public set createdAt(value: Date) {
-    this._createdAt = value;
-  }
   public get hashtags(): string[] {
     return this._hashtags;
   }
   public set hashtags(value: string[]) {
     this._hashtags = value;
   }
-  public get views(): number {
-    return this._views;
-  }
-  public set views(value: number) {
-    this._views = value;
-  }
-  public get owner(): string {
-    return this._owner;
-  }
-  public set owner(value: string) {
-    this._owner = value;
-  }
-
   async getVideoList() {
     try {
       const result = await getVideos();
