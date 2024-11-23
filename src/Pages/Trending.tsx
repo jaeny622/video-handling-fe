@@ -2,9 +2,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { videoStore } from "../Stores/video.stores";
+import { observer } from "mobx-react";
+import { Video } from "../Types/video.types";
 
-export default function Trending() {
+export default observer(function Trending() {
   const navigate = useNavigate();
+  const { videos } = videoStore;
+
   useEffect(() => {
     videoStore.getVideoList();
   }, []);
@@ -16,8 +20,12 @@ export default function Trending() {
     <div>
       <button onClick={handleClick}>Upload</button>
       <div>
-        {videoStore.videos?.length === 0 ? "No Vidoes" : "Welcome to Homepage"}
+        {videos?.length === 0
+          ? "No Vidoes"
+          : videos.map((video: Video) => (
+              <div key={video._id}> {video.title}</div>
+            ))}
       </div>
     </div>
   );
-}
+});
