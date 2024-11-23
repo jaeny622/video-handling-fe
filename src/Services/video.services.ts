@@ -1,7 +1,15 @@
 import axios from "axios";
+import { VideoStd } from "../Types/video.types";
 
 export async function getVideos() {
   const res = await axios.get("");
+  return res?.data;
+}
+
+export async function uploadVideo(video: VideoStd) {
+  const res = await axios.post("/videos/upload", {
+    video,
+  });
   return res?.data;
 }
 
