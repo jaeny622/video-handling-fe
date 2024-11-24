@@ -1,15 +1,22 @@
+import { action, makeAutoObservable } from "mobx";
 import { getVideos } from "../Services/video.services";
-import { Video, VideoStd } from "../Types/video.types";
+import { Video, VideoInfo } from "../Types/video.types";
 
 class VideoStore {
   private _videos = [] as Video[];
-  private _uploadVideo = {} as VideoStd;
+  private _uploadVideo = {} as VideoInfo;
   private _video = {} as Video;
   private _title = "";
   private _fileUrl = "";
   private _thumbUrl = "";
   private _description = "";
   private _hashtags = [] as string[];
+
+  constructor() {
+    makeAutoObservable(this, {
+      getVideoList: action,
+    });
+  }
 
   public get videos() {
     return this._videos;
@@ -20,7 +27,7 @@ class VideoStore {
   public get uploadVideo() {
     return this._uploadVideo;
   }
-  public set uploadVideo(value: VideoStd) {
+  public set uploadVideo(value: VideoInfo) {
     this._uploadVideo = value;
   }
   public get video() {
@@ -59,11 +66,11 @@ class VideoStore {
   public set hashtags(value: string[]) {
     this._hashtags = value;
   }
+
   async getVideoList() {
     try {
       const result = await getVideos();
-      this.videos = result;
-      console.log(result);
+      this.videos = result as Video[];
     } catch (error) {
       console.log(error);
     }

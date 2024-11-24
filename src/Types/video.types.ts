@@ -4,10 +4,14 @@ export interface VideoStd {
   fileUrl: string;
   thumbUrl: string;
   description: string;
+}
+
+export interface VideoInfo extends VideoStd {
   hashtags: string;
 }
 
-export interface Video extends Omit<VideoStd, "hashtags"> {
+export interface Video extends VideoStd {
+  _id: string;
   createdAt: Date;
   views: number;
   hashtags: string[];
