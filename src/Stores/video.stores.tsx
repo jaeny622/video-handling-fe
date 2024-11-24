@@ -4,8 +4,9 @@ import { Video, VideoInfo } from "../Types/video.types";
 
 class VideoStore {
   private _videos = [] as Video[];
-  private _uploadVideo = {} as VideoInfo;
   private _video = {} as Video;
+  private _uploadVideo = {} as VideoInfo;
+  private _editVideo = {} as VideoInfo;
   private _title = "";
   private _fileUrl = "";
   private _thumbUrl = "";
@@ -30,6 +31,12 @@ class VideoStore {
   }
   public set uploadVideo(value: VideoInfo) {
     this._uploadVideo = value;
+  }
+  public get editVideo() {
+    return this._editVideo;
+  }
+  public set editVideo(value: VideoInfo) {
+    this._editVideo = value;
   }
   public get video() {
     return this._video;
@@ -81,7 +88,6 @@ class VideoStore {
     try {
       const result = await getVideo(id);
       this.video = result as Video;
-      console.log(result);
     } catch (error) {
       console.log(error);
     }

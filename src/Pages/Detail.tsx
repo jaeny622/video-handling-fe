@@ -1,9 +1,13 @@
 import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { observer } from "mobx-react";
+
 import { videoStore } from "../Stores/video.stores";
+
 import NotFound from "./NotFound";
 
-export default function Detail() {
+export default observer(function Detail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { video } = videoStore;
 
@@ -11,14 +15,19 @@ export default function Detail() {
     videoStore.getVideo(id ?? "");
   }, []);
 
+  const handleClickEdit = () => {
+    navigate(`/video/edit?id=${id}`);
+  };
+
   return (
     <div>
+      <button onClick={handleClickEdit}>Edit</button>
       {video._id ? (
         <div>
           {video.title}
           <div>
-            {video.hashtags.map((hashtag) => (
-              <span>{`#${hashtag}`}</span>
+            {video.hashtags.map((hashtag, idx) => (
+              <span key={`${idx}${hashtag}`}>{`#${hashtag}`}</span>
             ))}
           </div>
         </div>
@@ -27,4 +36,4 @@ export default function Detail() {
       )}
     </div>
   );
-}
+});
