@@ -1,5 +1,5 @@
 import { action, makeAutoObservable } from "mobx";
-import { getVideos } from "../Services/video.services";
+import { getVideo, getVideos } from "../Services/video.services";
 import { Video, VideoInfo } from "../Types/video.types";
 
 class VideoStore {
@@ -15,6 +15,7 @@ class VideoStore {
   constructor() {
     makeAutoObservable(this, {
       getVideoList: action,
+      getVideo: action,
     });
   }
 
@@ -71,6 +72,16 @@ class VideoStore {
     try {
       const result = await getVideos();
       this.videos = result as Video[];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getVideo(id: string) {
+    try {
+      const result = await getVideo(id);
+      this.video = result as Video;
+      console.log(result);
     } catch (error) {
       console.log(error);
     }

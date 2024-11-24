@@ -14,7 +14,7 @@ export async function uploadVideo(video: VideoStd) {
 }
 
 export async function getVideo(id: string) {
-  const res = await axios.get(`${id}`);
+  const res = await axios.get(`/videos/${id}`);
   return res?.data;
 }
 

@@ -16,6 +16,11 @@ export default observer(function Trending() {
   const handleClick = () => {
     navigate("video/upload");
   };
+
+  const handleClickTitle = (id: string) => {
+    navigate(`video/${id}`);
+  };
+
   return (
     <div>
       <button onClick={handleClick}>Upload</button>
@@ -23,7 +28,9 @@ export default observer(function Trending() {
         {videos?.length === 0
           ? "No Vidoes"
           : videos.map((video: Video) => (
-              <div key={video._id}> {video.title}</div>
+              <div key={video._id} onClick={() => handleClickTitle(video._id)}>
+                {video.title}
+              </div>
             ))}
       </div>
     </div>
