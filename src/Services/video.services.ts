@@ -1,8 +1,9 @@
 import axios from "axios";
 import { VideoInfo, VideoStd } from "../Types/video.types";
 
-export async function getVideos() {
-  const res = await axios.get("");
+export async function getVideos(searchTerm: string) {
+  const url = searchTerm !== "" ? `?keyword=${searchTerm}` : "";
+  const res = await axios.get(url);
   return res?.data;
 }
 

@@ -75,9 +75,9 @@ class VideoStore {
     this._hashtags = value;
   }
 
-  async getVideoList() {
+  async getVideoList(searchTerm: string) {
     try {
-      const result = await getVideos();
+      const result = await getVideos(searchTerm);
       this.videos = result as Video[];
     } catch (error) {
       console.log(error);
