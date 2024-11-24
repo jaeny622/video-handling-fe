@@ -23,7 +23,7 @@ export async function editVideo(id: string, video: VideoInfo) {
   return res?.data;
 }
 
-export async function deleteVideo() {
-  const res = await axios.post("/delets", {});
+export async function deleteVideo(id: string) {
+  const res = await axios.post("/videos/delete", { id });
   return res?.data;
 }

@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { videoStore } from "../Stores/video.stores";
 
 import NotFound from "./NotFound";
+import { deleteVideo } from "../Services/video.services";
 
 export default observer(function Detail() {
   const navigate = useNavigate();
@@ -19,9 +20,14 @@ export default observer(function Detail() {
     navigate(`/video/edit?id=${id}`);
   };
 
+  const handleClickDelete = () => {
+    deleteVideo(id ?? "");
+  };
+
   return (
     <div>
       <button onClick={handleClickEdit}>Edit</button>
+      <button onClick={handleClickDelete}>Delete</button>
       {video._id ? (
         <div>
           {video.title}
