@@ -1,8 +1,9 @@
 import axios from "axios";
-import { VideoStd } from "../Types/video.types";
+import { VideoInfo, VideoStd } from "../Types/video.types";
 
-export async function getVideos() {
-  const res = await axios.get("");
+export async function getVideos(searchTerm: string) {
+  const url = searchTerm !== "" ? `?keyword=${searchTerm}` : "";
+  const res = await axios.get(url);
   return res?.data;
 }
 
@@ -14,16 +15,16 @@ export async function uploadVideo(video: VideoStd) {
 }
 
 export async function getVideo(id: string) {
-  const res = await axios.get(`${id}`);
+  const res = await axios.get(`/videos/${id}`);
   return res?.data;
 }
 
-export async function editVideo() {
-  const res = await axios.post("/edit", {});
+export async function editVideo(id: string, video: VideoInfo) {
+  const res = await axios.post("/videos/edit", { id, video });
   return res?.data;
 }
 
-export async function deleteVideo() {
-  const res = await axios.post("/delets", {});
+export async function deleteVideo(id: string) {
+  const res = await axios.post("/videos/delete", { id });
   return res?.data;
 }
